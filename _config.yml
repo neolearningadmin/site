@@ -1,0 +1,7 @@
+title: Neo-Learning
+description: Mastering Python through Cognitive Science and Ancient Wisdom.
+baseurl: "" 
+url: "https://neo-learning.com"
+
+markdown: kramdown
+permalink: /blog/:title/
