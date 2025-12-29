@@ -146,26 +146,27 @@
             <p class="text-blue-100 text-lg mb-10">Join 5,000+ students in our Free 7-Day Python Challenge and get our
                 "Cognitive Learning" toolkit.</p>
             <form action="https://assets.mailerlite.com/jsonp/1984625/forms/175091330763982595/subscribe" method="post"
-                target="_blank" class="flex flex-col gap-4 items-center">
+                target="_blank" class="flex flex-col gap-6 items-center w-full">
 
                 <div class="flex flex-col md:flex-row gap-4 justify-center w-full">
                     <input type="email" name="fields[email]" placeholder="Enter your email" required
-                        class="px-6 py-4 rounded-full text-slate-900 md:w-80 focus:outline-none focus:ring-4 focus:ring-secondary/50">
+                        class="px-6 py-4 rounded-full text-slate-900 border border-slate-200 md:w-80 focus:outline-none focus:ring-4 focus:ring-orange-500/50">
 
                     <button type="submit"
-                        class="bg-secondary hover:bg-orange-600 px-10 py-4 rounded-full font-bold transition-colors">
+                        class="bg-orange-500 hover:bg-orange-600 text-white px-10 py-4 rounded-full font-bold transition-colors shadow-lg shadow-orange-200">
                         Send Me the Toolkit
                     </button>
                 </div>
 
-                <label class="flex items-start gap-2 cursor-pointer max-w-md">
-                    <input type="checkbox" required
-                        class="mt-1 h-4 w-4 text-secondary rounded border-slate-300 focus:ring-secondary">
-                    <span class="text-xs text-slate-500 text-left">
+                <div class="flex items-start gap-3 max-w-md bg-slate-50 p-3 rounded-lg border border-slate-100">
+                    <input type="checkbox" id="consent-check" required
+                        class="mt-1 h-5 w-5 rounded border-slate-300 text-orange-600 focus:ring-orange-500 cursor-pointer">
+                    <label for="consent-check"
+                        class="text-xs text-slate-600 leading-relaxed cursor-pointer select-none">
                         I agree to receive the 7-Day Python Nudge and weekly architectural insights. I can unsubscribe
                         at any time.
-                    </span>
-                </label>
+                    </label>
+                </div>
             </form>
         </div>
     </section>
