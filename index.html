@@ -185,45 +185,39 @@
         <p>&copy; 2025 Neo-Learning. Built for the curious.</p>
     </footer>
 
-    <script>
-    document.getElementById('toolkit-form').addEventListener('submit', function(e) {
-        e.preventDefault();
+        <script>
+        document.getElementById('toolkit-form').addEventListener('submit', function(e) {
+        e.preventDefault(); // Stop the refresh
 
         const form = e.target;
         const email = form.querySelector('input[type="email"]').value;
         const button = form.querySelector('button');
 
+        // 1. Visual Loading State
         button.innerText = "Sending...";
         button.disabled = true;
 
-        // 1. Define the Success Callback
-        // MailerLite expects a global function to call when finished
-        window.ml_callback = function(response) {
+        // 2. Use the MailerLite 'ml' function directly
+        // This uses the existing Universal Script you already have in your <head>
+        ml('success', 'xoz6Ik', function() {
+            // This code runs ONLY when MailerLite confirms the signup
             button.innerText = "Check Your Inbox! ✓";
             button.classList.remove('bg-orange-500', 'hover:bg-orange-600');
             button.classList.add('bg-green-600');
-            
-            // GTM Event
+
+            // 3. Push to GTM for your Leaderboard
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
                 'event': 'toolkit_signup',
-                'form_id': '7-day-challenge'
+                'video_id': new URLSearchParams(window.location.search).get('c')
             });
-            
-            // Cleanup the script tag
-            document.getElementById('ml-jsonp').remove();
-        };
+        });
 
-        // 2. Create the JSONP Request
-        const mlUrl = "https://assets.mailerlite.com/jsonp/1984625/forms/175091330763982595/subscribe";
-        const script = document.createElement('script');
-        script.id = 'ml-jsonp';
-        
-        // We add callback=ml_callback so MailerLite knows what to do on success
-        script.src = `${mlUrl}?fields[email]=${encodeURIComponent(email)}&callback=ml_callback`;
-        
-        // 3. Fire the request
-        document.body.appendChild(script);
+        // 4. Execute the submission to MailerLite
+        // We pass the email field data to your specific form (xoz6Ik)
+        ml('send', 'xoz6Ik', {
+            email: email
+        });
     });
     </script>
 
