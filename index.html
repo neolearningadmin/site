@@ -157,7 +157,7 @@
             <p class="text-blue-100 text-lg mb-10">Join 5,000+ students in our Free 7-Day Python Challenge and get our
                 "Cognitive Learning" toolkit.</p>
             <form action="https://assets.mailerlite.com/jsonp/1984625/forms/175091330763982595/subscribe" method="post"
-                target="_blank" class="flex flex-col gap-6 items-center w-full">
+                class="flex flex-col gap-6 items-center w-full">
 
                 <div class="flex flex-col md:flex-row gap-4 justify-center w-full">
                     <input type="email" name="fields[email]" placeholder="Enter your email" required
@@ -185,6 +185,34 @@
     <footer class="py-12 border-t border-slate-100 text-center text-slate-400 text-sm">
         <p>&copy; 2025 Neo-Learning. Built for the curious.</p>
     </footer>
+
+    <script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+        // 1. Stop the browser from opening a new tab/reloading
+        e.preventDefault();
+
+        const form = e.target;
+        const data = new FormData(form);
+        const action = form.action;
+
+        // 2. Send the data in the background (AJAX)
+        fetch(action, {
+            method: 'POST',
+            body: data,
+            mode: 'no-cors' // This allows the request to "fire and forget" to MailerLite
+        })
+        .then(() => {
+            // 3. Success! Update the UI without leaving the page
+            const button = form.querySelector('button');
+            button.innerText = "Check Your Inbox! ✓";
+            button.style.backgroundColor = "#16a34a"; // Changes to Tailwind green-600
+            button.disabled = true;
+            
+            form.querySelector('input[type="email"]').value = "";
+        })
+        .catch(error => console.error('Error:', error));
+    });
+    </script>
 
 </body>
 
