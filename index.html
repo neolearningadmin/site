@@ -187,43 +187,43 @@
 
     <script>
     document.getElementById('toolkit-form').addEventListener('submit', function(e) {
-        e.preventDefault(); // Stop the page from reloading or opening a new tab
+        e.preventDefault();
 
         const form = e.target;
         const email = form.querySelector('input[type="email"]').value;
         const button = form.querySelector('button');
-        const originalText = button.innerText;
 
-        // 1. Visual Feedback: Loading state
         button.innerText = "Sending...";
         button.disabled = true;
 
-        // 2. Send Data to MailerLite (using their JSONP endpoint)
-        const mlUrl = "https://assets.mailerlite.com/jsonp/1984625/forms/175091330763982595/subscribe";
-        const params = new URLSearchParams({
-            "fields[email]": email,
-            "ajax": 1
-        });
-
-        fetch(`${mlUrl}?${params.toString()}`, { method: 'GET', mode: 'no-cors' })
-        .then(() => {
-            // 3. SUCCESS: The "Magic Button" Transformation
+        // 1. Define the Success Callback
+        // MailerLite expects a global function to call when finished
+        window.ml_callback = function(response) {
             button.innerText = "Check Your Inbox! ✓";
             button.classList.remove('bg-orange-500', 'hover:bg-orange-600');
-            button.classList.add('bg-green-600'); // Tailwind green
+            button.classList.add('bg-green-600');
             
-            // 4. GTM Conversion Trigger
+            // GTM Event
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
                 'event': 'toolkit_signup',
                 'form_id': '7-day-challenge'
             });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            button.innerText = "Error - Try Again";
-            button.disabled = false;
-        });
+            
+            // Cleanup the script tag
+            document.getElementById('ml-jsonp').remove();
+        };
+
+        // 2. Create the JSONP Request
+        const mlUrl = "https://assets.mailerlite.com/jsonp/1984625/forms/175091330763982595/subscribe";
+        const script = document.createElement('script');
+        script.id = 'ml-jsonp';
+        
+        // We add callback=ml_callback so MailerLite knows what to do on success
+        script.src = `${mlUrl}?fields[email]=${encodeURIComponent(email)}&callback=ml_callback`;
+        
+        // 3. Fire the request
+        document.body.appendChild(script);
     });
     </script>
 
