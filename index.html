@@ -156,7 +156,8 @@
             <h2 class="text-3xl md:text-4xl mb-6">Ready to change how you learn?</h2>
             <p class="text-blue-100 text-lg mb-10">Join 5,000+ students in our Free 7-Day Python Challenge and get our
                 "Cognitive Learning" toolkit.</p>
-            <form id="toolkit-form" class="flex flex-col gap-6 items-center w-full">
+            <form action="https://assets.mailerlite.com/jsonp/1984625/forms/175091330763982595/subscribe" method="post"
+                target="_blank" class="flex flex-col gap-6 items-center w-full">
 
                 <div class="flex flex-col md:flex-row gap-4 justify-center w-full">
                     <input type="email" name="fields[email]" placeholder="Enter your email" required
@@ -184,36 +185,6 @@
     <footer class="py-12 border-t border-slate-100 text-center text-slate-400 text-sm">
         <p>&copy; 2025 Neo-Learning. Built for the curious.</p>
     </footer>
-
-    <script>
-    document.getElementById('toolkit-form').addEventListener('submit', function(e) {
-        e.preventDefault(); // Prevents the page from refreshing
-
-        const form = e.target;
-        const emailInput = form.querySelector('input[type="email"]');
-        const button = form.querySelector('button');
-
-        // 1. Visual feedback
-        button.innerText = "Sending...";
-        button.disabled = true;
-
-        // 2. Submit to MailerLite
-        // 'xoz6Ik' is your specific Form ID which is linked to your Groups
-        ml('send', 'xoz6Ik', {
-            fields: {
-                email: emailInput.value
-            }
-        }, function() {
-            // 3. This callback runs ONLY after MailerLite confirms success
-            button.innerText = "Check Your Inbox! ✓";
-            button.classList.remove('bg-orange-500', 'hover:bg-orange-600');
-            button.classList.add('bg-green-600');
-            
-            // Clear input for better UX
-            emailInput.value = '';
-        });
-    });
-    </script>
 
 </body>
 
