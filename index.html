@@ -207,6 +207,11 @@
             button.innerText = "Check Your Inbox! ✓";
             button.style.backgroundColor = "#16a34a"; // Changes to Tailwind green-600
             button.disabled = true;
+
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'toolkit_signup'
+            });
             
             form.querySelector('input[type="email"]').value = "";
         })
