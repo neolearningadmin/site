@@ -185,38 +185,32 @@
         <p>&copy; 2025 Neo-Learning. Built for the curious.</p>
     </footer>
 
-        <script>
-        document.getElementById('toolkit-form').addEventListener('submit', function(e) {
-        e.preventDefault(); // Stop the refresh
+    <script>
+    document.getElementById('toolkit-form').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevents the page from refreshing
 
         const form = e.target;
-        const email = form.querySelector('input[type="email"]').value;
+        const emailInput = form.querySelector('input[type="email"]');
         const button = form.querySelector('button');
 
-        // 1. Visual Loading State
+        // 1. Visual feedback
         button.innerText = "Sending...";
         button.disabled = true;
 
-        // 2. Use the MailerLite 'ml' function directly
-        // This uses the existing Universal Script you already have in your <head>
-        ml('success', 'xoz6Ik', function() {
-            // This code runs ONLY when MailerLite confirms the signup
+        // 2. Submit to MailerLite
+        // 'xoz6Ik' is your specific Form ID which is linked to your Groups
+        ml('send', 'xoz6Ik', {
+            fields: {
+                email: emailInput.value
+            }
+        }, function() {
+            // 3. This callback runs ONLY after MailerLite confirms success
             button.innerText = "Check Your Inbox! ✓";
             button.classList.remove('bg-orange-500', 'hover:bg-orange-600');
             button.classList.add('bg-green-600');
-
-            // 3. Push to GTM for your Leaderboard
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-                'event': 'toolkit_signup',
-                'video_id': new URLSearchParams(window.location.search).get('c')
-            });
-        });
-
-        // 4. Execute the submission to MailerLite
-        // We pass the email field data to your specific form (xoz6Ik)
-        ml('send', 'xoz6Ik', {
-            email: email
+            
+            // Clear input for better UX
+            emailInput.value = '';
         });
     });
     </script>
