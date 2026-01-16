@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: page
 title: "Learning Methods Index"
 permalink: /tags/
 ---
