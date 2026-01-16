@@ -30,8 +30,30 @@ layout: page
 
     <footer class="mt-16 pt-10 border-t border-slate-200">
         <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100">
-            <h3 class="text-2xl font-heading mb-2">Did this insight click?</h3>
+            <h3 class="text-2xl font-heading mb-2 text-blue-900">Did this insight click?</h3>
             <p class="text-slate-600 mb-6">Send this to a peer or join the library for the 7-Day Python Nudge.</p>
+            
+            <div class="flex flex-col gap-6">
+                <a href="mailto:?subject=Read: {{ page.title }}&body=Thought you'd like this: {{ site.url }}{{ page.url }}" 
+                   class="flex items-center justify-center gap-2 text-blue-900 font-bold border-2 border-blue-900 px-6 py-3 rounded-xl hover:bg-blue-900 hover:text-white transition">
+                   Email this Article to a Friend
+                </a>
+
+                <form action="https://assets.mailerlite.com/jsonp/1984625/forms/175091330763982595/subscribe" 
+                      method="post" target="_blank" class="flex flex-col gap-3">
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input type="email" name="fields[email]" placeholder="Enter your email" required 
+                               class="flex-1 px-4 py-3 rounded-xl border border-slate-300 outline-none focus:ring-2 focus:ring-orange-500">
+                        <button type="submit" class="bg-orange-500 text-white px-8 py-3 rounded-xl font-bold hover:bg-orange-600 transition shadow-lg">
+                            Join
+                        </button>
+                    </div>
+                    <label class="flex items-start gap-2 cursor-pointer">
+                        <input type="checkbox" required class="mt-1 h-4 w-4 text-orange-500 rounded border-slate-300">
+                        <span class="text-xs text-slate-500">I agree to receive weekly architectural nudges.</span>
+                    </label>
+                </form>
             </div>
+        </div>
     </footer>
 </article>
