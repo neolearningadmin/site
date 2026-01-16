@@ -1,83 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% include gtm_head.html %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} | Neo-Learning</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { font-family: 'Open Sans', sans-serif; }
-        h1, h2, h3 { font-family: 'Montserrat', sans-serif; color: #1E3A8A; }
-        .prose p { margin-bottom: 1.5rem; line-height: 1.8; color: #475569; }
-    </style>
-</head>
-<body class="bg-white">
-    {% include gtm_body.html %}
-    <nav class="p-6 border-b border-slate-100">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <a href="/" class="flex items-center">
-                <img src="https://neo-learning.com/logo.png" alt="Logo" class="h-8 w-auto">
-            </a>
-            <a href="/blog/" class="text-blue-900 font-bold text-sm">← Back to Library</a>
-        </div>
-    </nav>
+---
+layout: page
+---
+<article class="max-w-3xl mx-auto px-6 py-20 prose">
+    <h1 class="text-4xl font-heading mb-4 text-blue-900">{{ page.title }}</h1>
+    
+    <p class="text-sm text-slate-400 mb-6 underline decoration-orange-500 decoration-2">
+        Published on {{ page.date | date: "%b %d, %Y" }}
+    </p>
 
-    <article class="max-w-3xl mx-auto px-6 py-20 prose">
-        <h1 class="text-4xl mb-4">{{ page.title }}</h1>
-        <p class="text-sm text-slate-400 mb-10 underline decoration-orange-500 decoration-2">
-            Published on {{ page.date | date: "%b %d, %Y" }}
-        </p>
+    <div class="flex flex-wrap gap-2 mb-4">
+        {% for category in page.categories %}
+        <a href="/categories/#{{ category | slugify }}" class="bg-blue-100 hover:bg-blue-200 text-blue-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider transition">
+            {{ category }}
+        </a>
+        {% endfor %}
+    </div>
 
-        <div class="flex flex-wrap gap-2 mb-4">
-            {% for category in page.categories %}
-            <a href="/categories/#{{ category | slugify }}" class="bg-blue-100 hover:bg-blue-200 text-blue-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider transition">
-                {{ category }}
-            </a>
-            {% endfor %}
-        </div>
+    <div class="flex flex-wrap gap-2 mb-10 border-b border-slate-100 pb-6">
+        {% for tag in page.tags %}
+        <a href="/tags/#{{ tag | slugify }}" class="text-slate-500 hover:text-orange-500 text-xs italic transition">
+            #{{ tag | replace: "-", "" }}
+        </a>
+        {% endfor %}
+    </div>
 
-        <div class="flex flex-wrap gap-2 mb-10">
-            {% for tag in page.tags %}
-            <a href="/tags/#{{ tag | slugify }}" class="text-slate-500 hover:text-orange-500 text-xs italic transition">
-                #{{ tag | replace: "-", "" }}
-            </a>
-            {% endfor %}
-        </div>
+    <div class="blog-content">
+        {{ content }}
+    </div>
 
-        <div class="blog-content">
-            {{ content }}
-        </div>
-
-        <footer class="mt-16 pt-10 border-t border-slate-200">
-            <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100">
-                <h3 class="text-2xl mb-2">Did this insight click?</h3>
-                <p class="text-slate-600 mb-6">Send this to a peer or join the library for the 7-Day Python Nudge.</p>
-                
-                <div class="flex flex-col gap-6">
-                    <a href="mailto:?subject=Read: {{ page.title }}&body=Thought you'd like this: {{ site.url }}{{ page.url }}" 
-                       class="flex items-center justify-center gap-2 text-blue-900 font-bold border-2 border-blue-900 px-6 py-3 rounded-xl hover:bg-blue-900 hover:text-white transition">
-                       Email this Article to a Friend
-                    </a>
-
-                    <form action="https://assets.mailerlite.com/jsonp/1984625/forms/175091330763982595/subscribe" 
-                          method="post" target="_blank" class="flex flex-col gap-3">
-                        <div class="flex flex-col sm:flex-row gap-2">
-                            <input type="email" name="fields[email]" placeholder="Enter your email" required 
-                                   class="flex-1 px-4 py-3 rounded-xl border border-slate-300 outline-none focus:ring-2 focus:ring-orange-500">
-                            <button type="submit" class="bg-orange-500 text-white px-8 py-3 rounded-xl font-bold hover:bg-orange-600 transition shadow-lg">
-                                Join
-                            </button>
-                        </div>
-                        <label class="flex items-start gap-2 cursor-pointer">
-                            <input type="checkbox" required class="mt-1 h-4 w-4 text-orange-500 rounded border-slate-300">
-                            <span class="text-xs text-slate-500">I agree to receive weekly architectural nudges.</span>
-                        </label>
-                    </form>
-                </div>
+    <footer class="mt-16 pt-10 border-t border-slate-200">
+        <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100">
+            <h3 class="text-2xl font-heading mb-2">Did this insight click?</h3>
+            <p class="text-slate-600 mb-6">Send this to a peer or join the library for the 7-Day Python Nudge.</p>
             </div>
-        </footer>
-    </article>
-</body>
-</html>
+    </footer>
+</article>
