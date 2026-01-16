@@ -1,6 +1,8 @@
 ---
 layout: post
 title: "The Upanishadic Code: Shravana in Python Mastery"
+categories: [Python, Learning-Methods]
+tags: [Vedantic-System, Shravana]
 ---
 
 Most people treat Python tutorials like entertainment. In the **Vedantic system**, this is the failure of the first stage: **Shravana**.
